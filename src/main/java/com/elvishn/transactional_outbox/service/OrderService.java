@@ -31,6 +31,11 @@ public class OrderService {
                 .name(order.getName())
                 .build();
         repo.save(entity);
+        try {
+            Thread.sleep(20000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         OrderCreatedEvent event = new OrderCreatedEvent(entity.getId(), entity.getName());
         CompletableFuture<SendResult<UUID, OrderCreatedEvent>> future = kafkaTemplate
                 .send("order-created-events-topic", entity.getId(), event);
