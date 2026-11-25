@@ -10,7 +10,7 @@
 4. Запустить приложение заново.
 
 ## Результат
-- `SELECT * FROM order_entity;` -> заказ есть
+- `SELECT * FROM orders;` -> заказ есть
 - consumer на топике `order-created-events-topic` -> события для этого заказа нет
 
 ## Вывод

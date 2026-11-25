@@ -2,7 +2,6 @@ package com.elvishn.transactional_outbox.controller;
 
 import com.elvishn.transactional_outbox.dto.OrderDto;
 import com.elvishn.transactional_outbox.service.OrderService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class OrderController {
     private final OrderService service;
 
-    @Autowired
     public OrderController(OrderService service) {
         this.service = service;
     }

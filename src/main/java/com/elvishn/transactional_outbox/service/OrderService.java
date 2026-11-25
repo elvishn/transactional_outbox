@@ -17,7 +17,7 @@ import java.util.concurrent.CompletableFuture;
 @Service
 public class OrderService {
 
-    private KafkaTemplate<UUID, OrderCreatedEvent> kafkaTemplate;
+    private final KafkaTemplate<UUID, OrderCreatedEvent> kafkaTemplate;
     private final OrderRepository repo;
     private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
@@ -31,11 +31,6 @@ public class OrderService {
                 .name(order.getName())
                 .build();
         repo.save(entity);
-        try {
-            Thread.sleep(20000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
         OrderCreatedEvent event = new OrderCreatedEvent(entity.getId(), entity.getName());
         CompletableFuture<SendResult<UUID, OrderCreatedEvent>> future = kafkaTemplate
                 .send("order-created-events-topic", entity.getId(), event);
